@@ -1,1 +1,1 @@
-# DeepSSM
+# KNU-Mamba
