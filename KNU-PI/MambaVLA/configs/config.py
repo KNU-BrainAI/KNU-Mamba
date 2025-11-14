@@ -255,7 +255,7 @@ class DatasetConfig:
     _target_: str = "MambaVLA.benchmark.libero.libero_dataset.LiberoDataset"
     # Note: benchmark_type is not passed to LiberoDataset, it's extracted from data_directory
     benchmark_type: str = "libero_object"  # Used for path construction
-    demos_per_task: int = 1
+    demos_per_task: int = 50
     dataset_path: str = "/home/navaneet/LIBERO/libero/datasets/"
     perception_seq_len: int = perception_seq_len
     action_seq_len: int = action_seq_len
