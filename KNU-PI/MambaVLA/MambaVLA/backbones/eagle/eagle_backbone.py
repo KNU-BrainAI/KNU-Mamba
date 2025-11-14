@@ -15,6 +15,7 @@
 
 import os
 from typing import Optional
+from pathlib import Path
 
 import torch
 from torch import nn
@@ -27,7 +28,7 @@ from .eagle2_hg_model.inference_eagle_repo import (
 
 from .eagle2_hg_model.inference_eagle_repo import EagleProcessor, ModelSpecificValues
 
-DEFAULT_EAGLE_MODEL_NAME = "/home/navaneet/original3/MambaVLA/backbones/eagle/eagle2_hg_model"
+DEFAULT_EAGLE_MODEL_NAME = str(Path.home() / "original3" / "MambaVLA" / "backbones" / "eagle" / "eagle2_hg_model")
 
 def get_embeddings(
     self,

@@ -2,7 +2,7 @@ configs/__pycache__/
 MambaVLA/__pycache__/
 configs/__pycache__/
 eval_scripts/__pycache__/
-test_mambaVLA.egg-info/
+mambaVLA.egg-info/
 *.pyc
 *.pyo
 *.pyd
@@ -23,6 +23,8 @@ test_mambaVLA.egg-info/
 
 wandb/
 runs/
+videos/
+log/
 *.log
 *.log.*
 *.log.*.*

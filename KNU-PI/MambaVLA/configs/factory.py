@@ -134,8 +134,12 @@ def create_trainer(config: MainConfig) -> Any:
     # Create dataset directly with only the required parameters
     from MambaVLA.benchmark.libero.libero_dataset import LiberoDataset
     from pathlib import Path
+    from os.path import expanduser
+
+    dataset_path = Path(expanduser(str(config.dataset.dataset_path))).resolve()
+
     dataset = LiberoDataset(
-        data_directory=Path(config.dataset.dataset_path),
+        data_directory=dataset_path,
         device=config.device,
         obs_dim=config.obs_dim,
         action_dim=config.action_dim,

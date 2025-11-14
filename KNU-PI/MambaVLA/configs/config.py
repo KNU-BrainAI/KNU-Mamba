@@ -4,6 +4,7 @@ Dataclass-based configuration system to replace Hydra configuration.
 
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any, Union, Tuple
+from pathlib import Path
 import torch
 
 
@@ -18,13 +19,14 @@ perception_seq_len = 1
 action_seq_len = 10
 consider_robot_states = False
 CAMERA_NAMES = ["agentview", "eye_in_hand"]
+DEFAULT_DATASET_ROOT = Path.home() / "LIBERO" / "datasets"
 
 
 @dataclass
 class WandbConfig:
     """Wandb configuration."""
-    entity: str = "sainavaneet"
-    project: str = "MambaVLA"
+    entity: str = "namaewa-im-pilab"
+    project: str = "mambavla"
 
 
 @dataclass
@@ -170,7 +172,7 @@ class DataLoadingConfig:
 @dataclass
 class TrainingConfig:
     """Training process configuration."""
-    epoch: int = 10
+    epoch: int = 500
     perception_seq_len: int = perception_seq_len
     eval_every_n_epochs: int = 5
     save_every_n_epochs: int = 10
@@ -256,7 +258,7 @@ class DatasetConfig:
     # Note: benchmark_type is not passed to LiberoDataset, it's extracted from data_directory
     benchmark_type: str = "libero_object"  # Used for path construction
     demos_per_task: int = 50
-    dataset_path: str = "/home/navaneet/LIBERO/libero/datasets/"
+    dataset_path: str = str(DEFAULT_DATASET_ROOT)
     perception_seq_len: int = perception_seq_len
     action_seq_len: int = action_seq_len
     multistep: int = 10
@@ -295,7 +297,7 @@ class SimulationConfig:
     n_cores: int = 2
     use_multiprocessing: bool = False
     save_video: bool = True
-    save_video_dir: str = '/home/navaneet/MambaVLA_evaluation/videos/'
+    save_video_dir: str = './videos'
 
 @dataclass
 class MainConfig:
@@ -377,7 +379,7 @@ def create_libero_object_config() -> MainConfig:
     """Create configuration for libero_object task suite."""
     config = MainConfig()
     config.dataset.benchmark_type = "libero_object"
-    config.dataset.dataset_path = "/home/navaneet/LIBERO/libero/datasets/libero_object"
+    config.dataset.dataset_path = str(DEFAULT_DATASET_ROOT / "libero_object")
     return config
 
 
@@ -385,7 +387,7 @@ def create_libero_spatial_config() -> MainConfig:
     """Create configuration for libero_spatial task suite."""
     config = MainConfig()
     config.dataset.benchmark_type = "libero_spatial"
-    config.dataset.dataset_path = "/home/navaneet/LIBERO/libero/datasets/libero_spatial"
+    config.dataset.dataset_path = str(DEFAULT_DATASET_ROOT / "libero_spatial")
     return config
 
 
@@ -393,7 +395,7 @@ def create_libero_goal_config() -> MainConfig:
     """Create configuration for libero_goal task suite."""
     config = MainConfig()
     config.dataset.benchmark_type = "libero_goal"
-    config.dataset.dataset_path = "/home/navaneet/LIBERO/libero/datasets/libero_goal"
+    config.dataset.dataset_path = str(DEFAULT_DATASET_ROOT / "libero_goal")
 
     return config
 
@@ -401,6 +403,6 @@ def create_libero_90_config() -> MainConfig:
     """Create configuration for libero_90 task suite."""
     config = MainConfig()
     config.dataset.benchmark_type = "libero_90"
-    config.dataset.dataset_path = "/home/navaneet/LIBERO/libero/datasets/libero_90"
+    config.dataset.dataset_path = str(DEFAULT_DATASET_ROOT / "libero_90")
 
     return config
