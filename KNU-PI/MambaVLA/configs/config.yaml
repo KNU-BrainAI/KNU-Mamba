@@ -1,0 +1,214 @@
+model_name: mamba
+group: MambaVLA
+seed: 0
+wandb:
+  entity: namaewa-im-pilab
+  project: mambavla
+dataset:
+  _target_: MambaVLA.benchmark.libero.libero_dataset.LiberoDataset
+  benchmark_type: libero_object
+  demos_per_task: 50
+  dataset_path: /home/imsohyeon/LIBERO/datasets
+  perception_seq_len: 1
+  action_seq_len: 10
+  multistep: 10
+  goal_conditioned: true
+  use_pos_emb: true
+  num_sampling_steps: 4
+  if_use_ema: true
+  obs_tokens: 2
+  obs_dim: 9
+  action_dim: 7
+  state_dim: 9
+  max_len_data: 347
+  consider_robot_states: false
+  camera_names:
+  - agentview
+  - eye_in_hand
+  shape_meta:
+    obs:
+      agentview_image:
+        shape:
+        - 3
+        - 128
+        - 128
+        type: rgb
+      eye_in_hand_image:
+        shape:
+        - 3
+        - 128
+        - 128
+        type: rgb
+  len_embd: 256
+  lang_emb_dim: 512
+  latent_dim: 256
+  n_heads: 4
+  mamba_encoder_cfg: {}
+  mamba_n_layer_encoder: 4
+model_cfg:
+  _target_: MambaVLA.MambaVLA
+  if_film_condition: false
+  consider_robot_states: false
+  optimizer:
+    _target_: torch.optim.AdamW
+    transformer_weight_decay: 0.05
+    obs_encoder_weight_decay: 0.05
+    learning_rate: 0.0001
+    betas:
+    - 0.9
+    - 0.9
+  lr_scheduler:
+    init_lr: 0.0001
+    init_lr_scale: 0.1
+    final_lr_scale: 1.0e-06
+    total_steps: 50000
+    phase_ratio: (0.02, 0.08, 0.9)
+    lr: 0.0001
+  use_lr_scheduler: false
+  perception_seq_len: 1
+  action_seq_len: 10
+  cam_names:
+  - agentview
+  - eye_in_hand
+  device: cuda
+  state_dim: 9
+  latent_dim: 256
+  action_dim: 7
+  sampling_steps: 4
+  model:
+    _target_: MambaVLA.ActionFLowMatching
+    ln: false
+    device: cuda
+    backbones:
+      _target_: MambaVLA.MambaVLAPolicy
+      latent_dim: 256
+      action_dim: 7
+      lang_emb_dim: 512
+      goal_conditioned: true
+      lang_tok_len: 1
+      obs_tok_len: 2
+      action_seq_len: 10
+      embed_pdrob: 0
+      embed_dim: 256
+      device: cuda
+      linear_output: true
+      use_ada_conditioning: false
+      encoder:
+        _target_: MambaVLA.MambaModel
+        d_model: 256
+        n_layer: 5
+        d_intermediate: 256
+        ssm_cfg:
+          layer: Mamba1
+          d_state: 64
+          d_conv: 4
+          expand: 2
+  obs_encoders:
+    _target_: MambaVLA.MultiImageObsEncoder
+    shape_meta:
+      obs:
+        agentview_image:
+          shape:
+          - 3
+          - 128
+          - 128
+          type: rgb
+        eye_in_hand_image:
+          shape:
+          - 3
+          - 128
+          - 128
+          type: rgb
+    rgb_model:
+      _target_: MambaVLA.ResNetEncoder
+      latent_dim: 256
+      pretrained: false
+      freeze_backbone: false
+      use_mlp: true
+    resize_shape: null
+    random_crop: false
+    use_group_norm: true
+    share_rgb_model: false
+    imagenet_norm: true
+  language_encoders:
+    _target_: MambaVLA.LangClip
+trainer:
+  _target_: MambaVLA.Trainer
+  device: cuda
+  data_loading:
+    train_batch_size: 256
+    val_batch_size: 256
+    num_workers: 4
+  training:
+    epoch: 500
+    perception_seq_len: 1
+    eval_every_n_epochs: 5
+    save_every_n_epochs: 10
+  data_scaling:
+    scale_data: true
+    scaling_type: minmax
+  ema:
+    decay_ema: 0.995
+    if_use_ema: true
+simulation:
+  _target_: MambaVLA.benchmark.libero.libero_sim.LiberoSim
+  rollouts: 1
+  max_step_per_episode: 600
+  benchmark_type: libero_object
+  use_eye_in_hand: false
+  seed: 0
+  device: cuda
+  render_image: false
+  n_cores: 2
+  use_multiprocessing: false
+  save_video: true
+  save_video_dir: ./videos
+train_batch_size: 256
+val_batch_size: 256
+num_workers: 4
+device: cuda
+epoch: 1
+eval_every_n_epochs: 1
+scale_data: true
+scaling_type: minmax
+obs_dim: 9
+action_dim: 7
+state_dim: 9
+max_len_data: 260
+consider_robot_states: false
+camera_names:
+- agentview
+- eye_in_hand
+shape_meta:
+  obs:
+    agentview_image:
+      shape:
+      - 3
+      - 128
+      - 128
+      type: rgb
+    eye_in_hand_image:
+      shape:
+      - 3
+      - 128
+      - 128
+      type: rgb
+chunck_size: 10
+perception_seq_len: 1
+action_seq_len: 10
+multistep: 10
+goal_conditioned: true
+use_pos_emb: true
+num_sampling_steps: 4
+if_use_ema: true
+obs_tokens: 2
+len_embd: 256
+lang_emb_dim: 512
+latent_dim: 256
+n_heads: 4
+mamba_encoder_cfg:
+  layer: Mamba1
+  d_state: 64
+  d_conv: 5
+  expand: 2
+mamba_n_layer_encoder: 5

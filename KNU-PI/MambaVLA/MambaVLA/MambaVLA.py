@@ -144,7 +144,8 @@ class MambaVLA(nn.Module):
             self.eval()
 
             pred_action_seq = self(obs_dict)[:, :self.action_seq_len]
-            pred_action_seq = self.scaler.inverse_scale_output(pred_action_seq)
+            if self.scaler is not None:
+                pred_action_seq = self.scaler.inverse_scale_output(pred_action_seq)
             self.pred_action_seq = pred_action_seq
 
         current_action = self.pred_action_seq[0, self.rollout_step_counter]
