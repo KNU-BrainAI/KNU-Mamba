@@ -4,7 +4,7 @@
 - Mirrors `python run.py --benchmark_type libero_object` but can be called directly from Python.
 - Example:
 ```
-from mambavla import train_vla
+from MambaVLA import train_vla
 
 train_vla(
     config_file="MambaVLA/configs/config.yaml",
@@ -18,7 +18,7 @@ train_vla(
 ### Inference (`infer_vla`)
 - Generates actions from a trained checkpoint and a language instruction.
 ```
-from mambavla import infer_vla
+from MambaVLA import infer_vla
 
 action = infer_vla(
     pth="./runs/libero_object/latest/final_model.pth",
