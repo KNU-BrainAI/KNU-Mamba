@@ -2,7 +2,7 @@ configs/__pycache__/
 MambaVLA/__pycache__/
 configs/__pycache__/
 eval_scripts/__pycache__/
-mambaVLA.egg-info/
+MambaVLA.egg-info/
 *.pyc
 *.pyo
 *.pyd
