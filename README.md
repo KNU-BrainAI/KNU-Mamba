@@ -31,3 +31,6 @@ We recommend using Conda to manage the environment:
 conda create -n knu-mamba python=3.10
 conda activate knu-mamba
 
+📄 License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
