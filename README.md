@@ -30,3 +30,5 @@ We recommend using Conda to manage the environment:
 ```bash
 conda create -n knu-mamba python=3.10
 conda activate knu-mamba
+
+pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu118](https://download.pytorch.org/whl/cu118)
