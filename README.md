@@ -6,7 +6,7 @@
 
 **KNU-Mamba** is a PyTorch-based implementation of the Mamba State Space Model (SSM) architecture, developed and maintained by the **Kyungpook National University (KNU)**.
 
-This repository serves as a codebase for exploring efficient sequence modeling using Mamba, capable of handling long-range dependencies with linear computational complexity. It is designed to support the lab's research in **Brain-Inspired AI**, **Generative AI**, and **Physical AI** (Robotics/Vision).
+This repository serves as a codebase for exploring efficient sequence modeling using Mamba, capable of handling long-range dependencies with linear computational complexity.
 
 > **Note**: This project builds upon the original Mamba architecture proposed by Gu & Dao (2023).
 
