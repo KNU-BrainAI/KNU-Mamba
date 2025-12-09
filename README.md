@@ -25,7 +25,7 @@ This repository serves as a codebase for exploring efficient sequence modeling u
 - PyTorch 1.12+
 
 ### Set up the Environment
-We recommend using Conda to manage the environment:
+We recommend using Conda to manage the environment, as described below.:
 
 ```bash
 conda create -n knu-mamba python=3.10
