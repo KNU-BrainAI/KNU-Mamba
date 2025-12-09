@@ -10,7 +10,7 @@ This repository serves as a codebase for exploring efficient sequence modeling u
 
 > **Note**: This project builds upon the original Mamba architecture proposed by Gu & Dao (2023).
 
-## 🚀 Features
+## 🚀 Feature
 
 - **Efficient Implementation**: optimized for fast training and inference on GPUs.
 - **Modular Design**: Easy integration into existing deep learning pipelines (e.g., for Computer Vision, NLP, or Time-Series analysis).
