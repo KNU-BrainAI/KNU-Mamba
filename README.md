@@ -26,7 +26,7 @@ This repository serves as a codebase for exploring efficient sequence modeling u
 
 ### Set up the Environment
 We recommend using Conda to manage the environment, as described below:
-s
+
 ```bash
 conda create -n knu-mamba python=3.10
 conda activate knu-mamba
